@@ -36,14 +36,13 @@ namespace CodeBlogFitness.BL.Controller
             if(product == null)
             {
                 Foods.Add(food);
-                Eating.Add(food, weight);
-                Save(); 
+                Eating.Add(food, weight); 
             }
             else
             {
                 Eating.Add(product, weight);
-                Save();
             }
+            Save();
         }
         private Eating GetEatings()
         {
