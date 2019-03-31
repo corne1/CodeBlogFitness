@@ -7,12 +7,17 @@ namespace CodeBlogFitness.BL.Controller
 {
     public class EatingController:BaseController
     {
+        #region Properties
         private const string FOOD_FILE_NAME = "foods.dat";
         private const string EATINGS_FILE_NAME = "eatings.dat";
         private readonly User user;
         public List<Food> Foods { get; }
         public Eating Eating { get; }
-
+        #endregion
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="user"></param>
         public EatingController(User user)
         {
             this.user = user ?? throw new ArgumentNullException("Пользователь не может быть пустым.", nameof(user));
@@ -20,6 +25,11 @@ namespace CodeBlogFitness.BL.Controller
             Eating = GetEatings();
         }
 
+        /// <summary>
+        /// Adding Foods
+        /// </summary>
+        /// <param name="food"></param>
+        /// <param name="weight"></param>
         public void Add(Food food, double weight)
         {
             var product = Foods.SingleOrDefault(f => f.Name == food.Name);
@@ -35,7 +45,6 @@ namespace CodeBlogFitness.BL.Controller
                 Save();
             }
         }
-
         private Eating GetEatings()
         {
             return Load<Eating>(EATINGS_FILE_NAME) ?? new Eating(user);
@@ -50,5 +59,6 @@ namespace CodeBlogFitness.BL.Controller
             Save(FOOD_FILE_NAME, Foods);
             Save(EATINGS_FILE_NAME, Eating);    
         }
+
     }
 }
